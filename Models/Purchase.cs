@@ -11,6 +11,7 @@
         public int Count { get; set; }
         public string? BillId { get; set; }
         public int ProductAmount { get; set; }
-  
+        public string? Purchasestatus { get; set;}
+        
     }
 }

@@ -25,11 +25,11 @@ namespace InventoryManagementSystem.Controllers
         {
             _dbcontext = dbContext;
        }
-
         [HttpPost]
         public ActionResult<Models.Order> Orderproduct([FromBody] OrderDTO OrderDTO){
-
+          
             var Existingcustomer = _dbcontext.Customer.Any(s => s.MobileNumber == OrderDTO.MobileNumber);
+            Retailer retailer = _dbcontext.Retailer.Find(OrderDTO.Retailerid);
             if (Existingcustomer == false)
             {
                 Customer customer = new Customer()
@@ -37,20 +37,18 @@ namespace InventoryManagementSystem.Controllers
                     CustomerID = 0,
                     CustomerName = OrderDTO.CustomerName,
                     MobileNumber = OrderDTO.MobileNumber,
-                    Creditpoints = 0
+                    Creditpoints = 0,
+                    Retailer= retailer,
                 };
                 _dbcontext.Customer.Add(customer);
                 _dbcontext.SaveChanges();
             }
-
             //update stock 
             var Products = _dbcontext.Products.Find(OrderDTO.ProductsId);
             Products!.Stock = Products.Stock - OrderDTO.Count;
             _dbcontext.Products.Update(Products);
 
-            Retailer retailer = _dbcontext.Retailer.Find(OrderDTO.Retailerid);
             Customer Customers = _dbcontext.Customer.Where(s=>s.MobileNumber==OrderDTO.MobileNumber).FirstOrDefault();
-
             Models.Order order = new Models.Order()
             {
                 OrderId = 0,
@@ -63,12 +61,14 @@ namespace InventoryManagementSystem.Controllers
                 BillId = OrderDTO.BillId
             };
 
-            Customers!.Creditpoints = Customers.Creditpoints + (order.ProductAmount) / 500;
+             Customers!.Creditpoints = Customers.Creditpoints+(order.ProductAmount)/500;
             _dbcontext.Customer.Update(Customers);
+
             _dbcontext.Order.Add(order);
             _dbcontext.SaveChanges();
             return Ok("ok");
         }
+
         //Order history
         [HttpPost]
         public ActionResult Findorderhistory([FromBody] GetRetailerid retailer)

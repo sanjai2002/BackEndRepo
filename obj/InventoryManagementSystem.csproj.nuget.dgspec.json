@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj": {}
+    "D:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj": {}
   },
   "projects": {
-    "d:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj": {
+    "D:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj",
+        "projectUniqueName": "D:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj",
         "projectName": "InventoryManagementSystem",
-        "projectPath": "d:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj",
+        "projectPath": "D:\\Micro project\\Backend\\InventoryManagementSystem\\InventoryManagementSystem.csproj",
         "packagesPath": "C:\\Users\\sanjai.harikrishnan\\.nuget\\packages\\",
-        "outputPath": "d:\\Micro project\\Backend\\InventoryManagementSystem\\obj\\",
+        "outputPath": "D:\\Micro project\\Backend\\InventoryManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

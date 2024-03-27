@@ -37,7 +37,7 @@ namespace InventoryManagementSystem.Controllers
                     ShopName = RetailerDTO.ShopName,
                     Location = RetailerDTO.Location,
                     GstNumber = RetailerDTO.GstNumber,
-                    UserStatus = 0,
+                    UserStatus = 1,
                     Role = "Retailer",
                 };
                 _dbcontext.Retailer.Add(Registerusers);
@@ -48,11 +48,9 @@ namespace InventoryManagementSystem.Controllers
             {
                 return Ok("Email is already exit");
             }
-
         }
 
         //login page
-
         [HttpPost]
         public ActionResult UserLogin([FromBody] Login Login)
         {
@@ -92,6 +90,8 @@ namespace InventoryManagementSystem.Controllers
             return Ok(authmessage);
         }
 
+
+
         //forget password-Send Email
         [HttpPost]
         public ActionResult<Retailer> Forget([FromBody] Emaildetails email)
@@ -126,7 +126,6 @@ namespace InventoryManagementSystem.Controllers
             return Ok("Enter correct password");
         }
 
-
         //find details using email
         [HttpPost]
         public ActionResult FindEmail([FromBody] Emaildetails email)
@@ -138,7 +137,6 @@ namespace InventoryManagementSystem.Controllers
             }
             else
             {
-          
                 return Ok(Email);
             }
         }

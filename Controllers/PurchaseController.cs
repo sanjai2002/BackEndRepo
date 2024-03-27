@@ -32,34 +32,33 @@ namespace InventoryManagementSystem.Controllers
 
             Purchase purchase = new Purchase()
             {
-                PurchaseId=0,
-                PurchaseDate=DateTime.Now,
-                Retailer= retailer,
-                SuperProduct= superproducts,
-                Count= PurchaseDTO.Count,
+                PurchaseId = 0,
+                PurchaseDate = DateTime.Now,
+                Retailer = retailer,
+                SuperProduct = superproducts,
+                Count = PurchaseDTO.Count,
                 BillId = "TYC" + Randompassword.Randompasswordgenerator(),
                 ProductAmount = superproducts.SellingPrice * PurchaseDTO.Count,
-         
+                Purchasestatus = "Pending",
+
             };
             _dbcontext.Purchase.Add(purchase);
             _dbcontext.SaveChanges();
             return Ok("ok");
         }
 
-
         [HttpGet]
         public ActionResult<IEnumerable<Purchase>> GetAllPurchase()
         {
-      
+
             var Purchasedetails = _dbcontext.Purchase.Include(x => x.Retailer).Include(x => x.SuperProduct).ToList();
-     
+
             if (Purchasedetails == null)
             {
                 return NoContent();
             }
             return Ok(Purchasedetails);
         }
-
 
         //Purchase history
 
@@ -78,8 +77,8 @@ namespace InventoryManagementSystem.Controllers
             }
         }
 
-        // Cancel order
 
+        // Cancel order
         [HttpDelete("{Id:int}")]
         public ActionResult Cancelorder(int Id)
         {
@@ -98,10 +97,20 @@ namespace InventoryManagementSystem.Controllers
             return Ok();
         }
 
+        //update status
+        [HttpPost]
+        public ActionResult<Models.Purchase> Purchasetatus([FromBody] StatusDTO StatusDTO)
+        {
+            var status = _dbcontext.Purchase.Find(StatusDTO.PurchaseId);
+            status.Purchasestatus = StatusDTO.Purchasestatus;
+            _dbcontext.Purchase.Update(status);
+            _dbcontext.SaveChanges();
+            return Ok();
+
+        }
 
 
     }
-
 
 }
 

@@ -9,18 +9,14 @@ namespace InventoryManagementSystem.Methods
         {
             string sender = "sanjairock85@gmail.com";
             string senderPass = "vmrc sKxx ihyK jscu";
-            // string recieve = "smano4570@gmail.com";
-
             MailMessage mail = new MailMessage(sender, Email);
-            mail.Subject = "password";
-            mail.Body = $" your password {password}";
-
+            mail.Subject = "Password";
+            mail.Body = $"This is notification from the Inventory Management System.Your new Password for {Email} account has been generated.\n Please take a moment to update your password\nNew Password:{password}";
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
             smtpClient.Port = 587;
             smtpClient.Credentials = new NetworkCredential(sender, senderPass);
             smtpClient.EnableSsl = true;
             smtpClient.Send(mail);
-
         }
 
     }

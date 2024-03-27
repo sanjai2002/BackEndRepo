@@ -7,29 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InventoryManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class asw : Migration
+    public partial class add : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Customer",
-                columns: table => new
-                {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CustomerName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    MobileNumber = table.Column<long>(type: "bigint", nullable: false),
-                    Creditpoints = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
-                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -88,6 +71,30 @@ namespace InventoryManagementSystem.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CustomerName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MobileNumber = table.Column<long>(type: "bigint", nullable: false),
+                    Creditpoints = table.Column<int>(type: "int", nullable: false),
+                    Retailerid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customer_Retailer_Retailerid",
+                        column: x => x.Retailerid,
+                        principalTable: "Retailer",
+                        principalColumn: "Retailerid",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -132,7 +139,9 @@ namespace InventoryManagementSystem.Migrations
                     Count = table.Column<int>(type: "int", nullable: false),
                     BillId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProductAmount = table.Column<int>(type: "int", nullable: false)
+                    ProductAmount = table.Column<int>(type: "int", nullable: false),
+                    Purchasestatus = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -190,6 +199,11 @@ namespace InventoryManagementSystem.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_Retailerid",
+                table: "Customer",
+                column: "Retailerid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_CustomerID",

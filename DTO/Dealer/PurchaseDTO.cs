@@ -11,6 +11,8 @@ namespace InventoryManagementSystem.DTO.Dealer
         public int Retailerid { get; set; }
         public int Count { get; set; }
 
+        public string? Purchasestatus { get; set; }
+
 
 
 

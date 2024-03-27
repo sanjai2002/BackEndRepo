@@ -39,7 +39,12 @@ namespace InventoryManagementSystem.Migrations
                     b.Property<long>("MobileNumber")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Retailerid")
+                        .HasColumnType("int");
+
                     b.HasKey("CustomerID");
+
+                    b.HasIndex("Retailerid");
 
                     b.ToTable("Customer");
                 });
@@ -150,6 +155,9 @@ namespace InventoryManagementSystem.Migrations
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("Purchasestatus")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Retailerid")
                         .HasColumnType("int");
 
@@ -253,22 +261,33 @@ namespace InventoryManagementSystem.Migrations
                     b.ToTable("SuperProduct");
                 });
 
+            modelBuilder.Entity("InventoryManagementSystem.Models.Customer", b =>
+                {
+                    b.HasOne("InventoryManagementSystem.Models.Retailer", "Retailer")
+                        .WithMany()
+                        .HasForeignKey("Retailerid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Retailer");
+                });
+
             modelBuilder.Entity("InventoryManagementSystem.Models.Order", b =>
                 {
                     b.HasOne("InventoryManagementSystem.Models.Customer", "Customer")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InventoryManagementSystem.Models.Products", "Products")
-                        .WithMany("Order")
+                        .WithMany()
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InventoryManagementSystem.Models.Retailer", "Retailer")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("RetailerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -283,7 +302,7 @@ namespace InventoryManagementSystem.Migrations
             modelBuilder.Entity("InventoryManagementSystem.Models.Products", b =>
                 {
                     b.HasOne("InventoryManagementSystem.Models.Retailer", "Retailer")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("Retailerid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -294,13 +313,13 @@ namespace InventoryManagementSystem.Migrations
             modelBuilder.Entity("InventoryManagementSystem.Models.Purchase", b =>
                 {
                     b.HasOne("InventoryManagementSystem.Models.Retailer", "Retailer")
-                        .WithMany("Purchase")
+                        .WithMany()
                         .HasForeignKey("Retailerid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InventoryManagementSystem.Models.SuperProduct", "SuperProduct")
-                        .WithMany("Purchase")
+                        .WithMany()
                         .HasForeignKey("SuperProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -308,30 +327,6 @@ namespace InventoryManagementSystem.Migrations
                     b.Navigation("Retailer");
 
                     b.Navigation("SuperProduct");
-                });
-
-            modelBuilder.Entity("InventoryManagementSystem.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("InventoryManagementSystem.Models.Products", b =>
-                {
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("InventoryManagementSystem.Models.Retailer", b =>
-                {
-                    b.Navigation("Orders");
-
-                    b.Navigation("Products");
-
-                    b.Navigation("Purchase");
-                });
-
-            modelBuilder.Entity("InventoryManagementSystem.Models.SuperProduct", b =>
-                {
-                    b.Navigation("Purchase");
                 });
 #pragma warning restore 612, 618
         }
