@@ -134,9 +134,10 @@ namespace InventoryManagementSystem.Controllers
             Products.BuyingPrice = ProductDTO.BuyingPrice;
             Products.SellingPrice = ProductDTO.SellingPrice;
             Products.ExpiryDate = ProductDTO.ExpiryDate;
-            Products.Stock = ProductDTO.Stock;
+            Products.Stock = Products.Stock+ProductDTO.Stock;
             Products.Retailer = retailer;
-            
+        
+
             _dbcontext.Products.Update(Products);
             _dbcontext.SaveChanges();
             return NoContent();

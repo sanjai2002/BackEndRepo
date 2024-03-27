@@ -77,7 +77,6 @@ namespace InventoryManagementSystem.Controllers
             }
         }
 
-
         // Cancel order
         [HttpDelete("{Id:int}")]
         public ActionResult Cancelorder(int Id)

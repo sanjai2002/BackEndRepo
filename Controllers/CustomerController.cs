@@ -19,6 +19,8 @@ namespace InventoryManagementSystem.Controllers
             _dbcontext = dbContext;
         }
 
+
+
         [HttpPost]
         public ActionResult FindCustomer([FromBody] CustomerMobilenumber Mobilenumber)
         {
@@ -33,6 +35,8 @@ namespace InventoryManagementSystem.Controllers
             }
         }
 
+
+
         //Get customer
         [HttpPost]
         public ActionResult GetCustomerdetails([FromBody] GetRetailerid retailer)
@@ -41,7 +45,7 @@ namespace InventoryManagementSystem.Controllers
 
             if (Customerdetails == null)
             {
-                return Ok("Not the data");
+                return Ok("Not the customer");
             }
             else
             {
