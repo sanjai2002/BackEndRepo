@@ -4,5 +4,6 @@
     public class GetRetailerid
     {
         public int Retailerid {  get; set; }
+
     }
 }

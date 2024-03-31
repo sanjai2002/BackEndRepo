@@ -138,7 +138,6 @@ namespace InventoryManagementSystem.Controllers
             Products.Retailer = retailer;
         
 
-            _dbcontext.Products.Update(Products);
             _dbcontext.SaveChanges();
             return NoContent();
         }

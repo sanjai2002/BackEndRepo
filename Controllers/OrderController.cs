@@ -70,6 +70,7 @@ namespace InventoryManagementSystem.Controllers
         }
 
         //Order history
+
         [HttpPost]
         public ActionResult Findorderhistory([FromBody] GetRetailerid retailer)
         {
@@ -105,11 +106,6 @@ namespace InventoryManagementSystem.Controllers
                 return Ok(Retailer);
             }
         }
-
-
-
-
-
         //[HttpGet]
         //public ActionResult<IEnumerable<Models.Order>> GetAll()
         //{
